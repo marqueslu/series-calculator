@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Serie } from 'src/app/models/serie';
 import { SeriesService } from '../series.service';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-series-list',
@@ -11,10 +12,10 @@ import { Subscription } from 'rxjs';
 export class SeriesListComponent implements OnInit {
   series: Serie[];
   
-  constructor(private seriesService: SeriesService) {}
+  constructor(private seriesService: SeriesService, private activatedRoute: ActivatedRoute) {}
 
-  ngOnInit() {
-    this.loadSeries();    
+  ngOnInit() {    
+    this.series = this.activatedRoute.snapshot.data.series;
   }
 
   loadSeries() {

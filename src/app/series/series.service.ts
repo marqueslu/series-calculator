@@ -15,4 +15,9 @@ export class SeriesService {
   listSeries(){
     return this.http.get<Serie[]>(`${this.API}/series`).pipe(take(1));
   }
+
+
+  getSerie(id: string){
+    return this.http.get<Serie>(`${this.API}/series/${id}`).pipe(take(1));
+  }
 }

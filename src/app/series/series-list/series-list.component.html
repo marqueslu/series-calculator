@@ -8,7 +8,7 @@
         <p class="card-text">ImdbId: {{ serie.imdbId }}</p>
         <p class="card-text">NumberOf seasons: {{ serie.numberOfSeasons }}</p>
         <p class="card-text">Release Date: {{ serie.releaseDate | date: 'dd-MM-yyyy' }}</p>
-        <a href="#" class="btn btn-primary">Calculate</a>
+        <a [routerLink]="['/serie', serie.id]" class="btn btn-primary">Calculate</a>
       </div>
     </div>
   </div>
