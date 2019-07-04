@@ -4,9 +4,7 @@
 
 export const environment = {
   production: false,
-  // API: 'https://nl0rh2wwna.execute-api.us-east-1.amazonaws.com/dev'
-
-  API: 'http://localhost:3000'
+  API: 'https://cors-anywhere.herokuapp.com/https://nl0rh2wwna.execute-api.us-east-1.amazonaws.com/dev'  
 };
 
 /*
