@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-xl-4 col-md-12 mt-4" *ngFor="let serie of series">
+    <div class="card">
+      <div class="card-header">
+        {{ serie.title }}
+      </div>
+      <div class="card-body">
+        <p class="card-text">ImdbId: {{ serie.imdbId }}</p>
+        <p class="card-text">NumberOf seasons: {{ serie.numberOfSeasons }}</p>
+        <p class="card-text">Release Date: {{ serie.releaseDate | date: 'dd-MM-yyyy' }}</p>
+        <a href="#" class="btn btn-primary">Calculate</a>
+      </div>
+    </div>
+  </div>
+</div>
