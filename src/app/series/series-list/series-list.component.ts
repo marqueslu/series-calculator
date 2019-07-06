@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Serie } from 'src/app/models/serie';
+import { Serie } from '../../core';
 import { SeriesService } from '../series.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';

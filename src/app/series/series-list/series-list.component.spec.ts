@@ -7,7 +7,7 @@ import { ActivatedRoute, RouterModule, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SeriesListResolver } from './series-list.resolver';
 import { of } from 'rxjs';
-import { Serie } from 'src/app/models/serie';
+import { Serie } from 'src/app/core/models/serie';
 
 describe('SeriesListComponent', () => {
   let component: SeriesListComponent;
