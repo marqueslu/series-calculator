@@ -17,6 +17,12 @@ export class CalculatorComponent implements OnInit {
   private seasons: Season[] = [];
   private episodes: Episode[] = [];
   private minutes: Number[] = [];
+  private startDate: Date;
+  private message: string = 'lallaal';
+  private messageInexistentRelease: string = 'There\'s no more release for this serie';
+  private nextReleaseDate: string = '';
+  private thereIsReleaseDate: boolean = true;
+
   constructor(
     private seriesService: SeriesService,
     private route: ActivatedRoute
@@ -40,6 +46,14 @@ export class CalculatorComponent implements OnInit {
 
   loadEpisodes(idSerie: string) {
     this.seasons.forEach(season => {
+      
+      if(season.releaseDate >= today){
+        this.nextReleaseDate = season.releaseDate;
+        this.thereIsReleaseDate = true;
+      }else{
+        this.thereIsReleaseDate = false;
+      }
+
       if (season.releaseDate <= today) {
         this.seriesService
           .getEpisodes(idSerie, season.id)
@@ -52,7 +66,7 @@ export class CalculatorComponent implements OnInit {
   }
 
   totalEpisodesTime(episodes: Episode[]) {
-    episodes.forEach((episode) => {
+    episodes.forEach(episode => {
       let time = episode.duration.split(' ');
       if (time.length === 2) {
         this.traitEpisodeHourMinutes(time);
@@ -73,5 +87,11 @@ export class CalculatorComponent implements OnInit {
   traitEpisodeMinutes(time: string[]) {
     let minute = time[0].split('min');
     this.minutes.push(parseInt(minute[0]));
+  }
+
+  addDays(date: Date, days){
+    let result = new Date(date);
+    result.setDate(date.getDay() + days);
+    return result;
   }
 }
