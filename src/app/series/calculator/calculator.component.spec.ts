@@ -6,7 +6,7 @@ import { SeriesService } from '../series.service';
 import { of, from } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SeriesModule } from '../series.module';
-import { Serie } from 'src/app/models/serie';
+import { Serie } from 'src/app/core/models/serie';
 
 describe('CalculatorComponent', () => {
   let component: CalculatorComponent;
@@ -16,15 +16,12 @@ describe('CalculatorComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({      
       providers: [SeriesService, {
-        provide: ActivatedRoute,
-        
+        provide: ActivatedRoute,        
         useValue: {
-          snapshot: {data: serie},        
-          // paramMap: of(convertToParamMap({id: 2}))
-          // paramMap: of({id: "1"})
+          paramMap: {id: '1'},
+          snapshot: {data: serie},
         }
-      }
-      ],
+      }],
       imports: [SeriesModule, RouterTestingModule]
     })
     .compileComponents();

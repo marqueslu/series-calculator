@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { SeriesService } from '../series.service';
-import { Serie } from 'src/app/models/serie';
+import { Serie } from 'src/app/core/models/serie';
+import { Season } from 'src/app/core/models/season';
+import { Episode } from 'src/app/core/models/episode';
+
+const today = new Date().toISOString().split('T')[0];
 
 @Component({
   selector: 'app-calculator',
@@ -9,12 +13,65 @@ import { Serie } from 'src/app/models/serie';
   styleUrls: ['./calculator.component.scss']
 })
 export class CalculatorComponent implements OnInit {
-  idSerie: string;
   serie: Serie;
+  private seasons: Season[] = [];
+  private episodes: Episode[] = [];
+  private minutes: Number[] = [];
+  constructor(
+    private seriesService: SeriesService,
+    private route: ActivatedRoute
+  ) {}
 
-  constructor(private seriesService: SeriesService, private route: ActivatedRoute) { }
+  async ngOnInit() {
+    this.serie = this.route.snapshot.data['serie'];
+    await this.load();    
+  }
 
-  ngOnInit() {        
-    this.serie = this.route.snapshot.data["serie"];    
+  async load() {
+    await this.loadSeasons(this.serie.id);
+  }
+
+  loadSeasons(idSerie: string) {
+    this.seriesService.getSeasons(idSerie).subscribe(seasons => {
+      this.seasons = seasons;
+      this.loadEpisodes(this.serie.id);
+    });
+  }
+
+  loadEpisodes(idSerie: string) {
+    this.seasons.forEach(season => {
+      if (season.releaseDate <= today) {
+        this.seriesService
+          .getEpisodes(idSerie, season.id)
+          .subscribe(seasonEpisodes => {
+            this.episodes.push(...seasonEpisodes);
+            this.totalEpisodesTime(seasonEpisodes);
+          });
+      }
+    });
+  }
+
+  totalEpisodesTime(episodes: Episode[]) {
+    episodes.forEach((episode) => {
+      let time = episode.duration.split(' ');
+      if (time.length === 2) {
+        this.traitEpisodeHourMinutes(time);
+      } else {
+        this.traitEpisodeMinutes(time);
+      }
+    });
+  }
+
+  traitEpisodeHourMinutes(time: string[]) {
+    let hour = time[0].split('');
+    this.minutes.push(parseInt(hour[0]) * 60);
+
+    let minute = time[1].split('min');
+    this.minutes.push(parseInt(minute[0]));
+  }
+
+  traitEpisodeMinutes(time: string[]) {
+    let minute = time[0].split('min');
+    this.minutes.push(parseInt(minute[0]));
   }
 }
