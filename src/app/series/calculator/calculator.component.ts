@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SeriesService } from '../series.service';
-import { Serie } from 'src/app/core/models/serie';
-import { Season } from 'src/app/core/models/season';
-import { Episode } from 'src/app/core/models/episode';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Serie, Episode, Season } from 'src/app/core';
+import { CustomValidator } from 'src/app/core/validators/custom.validator';
 
 const today = new Date().toISOString().split('T')[0];
 
@@ -13,24 +13,35 @@ const today = new Date().toISOString().split('T')[0];
   styleUrls: ['./calculator.component.scss']
 })
 export class CalculatorComponent implements OnInit {
+  form: FormGroup;
   serie: Serie;
   private seasons: Season[] = [];
   private episodes: Episode[] = [];
   private minutes: Number[] = [];
   private startDate: Date;
-  private message: string = 'lallaal';
-  private messageInexistentRelease: string = 'There\'s no more release for this serie';
+  private message: string = '';
+  private messageInexistentRelease: string =
+    "There's no more release for this serie";
   private nextReleaseDate: string = '';
   private thereIsReleaseDate: boolean = true;
 
   constructor(
     private seriesService: SeriesService,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private fb: FormBuilder
+  ) {
+    this.form = this.fb.group({
+      startDate: [
+        '',
+        [CustomValidator.StartDateValidator, Validators.required]
+      ],
+      hoursQuantity: ['', [Validators.min(1), Validators.required]]
+    });
+  }
 
   async ngOnInit() {
     this.serie = this.route.snapshot.data['serie'];
-    await this.load();    
+    await this.load();
   }
 
   async load() {
@@ -46,11 +57,10 @@ export class CalculatorComponent implements OnInit {
 
   loadEpisodes(idSerie: string) {
     this.seasons.forEach(season => {
-      
-      if(season.releaseDate >= today){
+      if (season.releaseDate >= today) {
         this.nextReleaseDate = season.releaseDate;
         this.thereIsReleaseDate = true;
-      }else{
+      } else {
         this.thereIsReleaseDate = false;
       }
 
@@ -89,9 +99,24 @@ export class CalculatorComponent implements OnInit {
     this.minutes.push(parseInt(minute[0]));
   }
 
-  addDays(date: Date, days){
+  addDays(date: Date, days) {
     let result = new Date(date);
     result.setDate(date.getDay() + days);
     return result;
+  }
+
+  onCalculate() {
+    console.log(this.form);
+  }
+
+  hasError(field: string) {
+    if (
+      this.form.get(field).errors != undefined ||
+      this.form.get(field).errors != null
+    )
+      return this.form.get(field).errors;
+    else {
+      return false;
+    }
   }
 }

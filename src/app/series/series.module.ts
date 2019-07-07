@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { SeriesListComponent } from './series-list/series-list.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -16,7 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CommonModule,
     HttpClientModule,
     RouterModule,    
-    FormsModule,
+    ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule
   ],

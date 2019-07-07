@@ -1,8 +1,9 @@
 <div class="container">
   <div class="row">
     <div class="col-xl-8 offset-xl-2 col-md-12 mt-4">
-      <div class="card">
-        <form class="p-4">
+      <h1 class="text-center">When I should start?</h1>
+      <div class="card">        
+        <form class="p-4" [formGroup]="form">
           <div class="form-group">
             <label>Start date:</label>
             <div class="input-group">
@@ -11,19 +12,27 @@
                 class="form-control"
                 #dp="bsDatepicker"
                 bsDatepicker
-                [bsValue]="bsValue"
+                formControlName="startDate"
+                [ngClass]="{
+                  'is-invalid':
+                  !form.controls.startDate.valid && !form.controls.startDate.pristine
+                }"
               />
               <div class="input-group-append">
                 <button
                   class="btn btn-outline-secondary calendar fa fa-calendar"
                   (click)="dp.toggle()"
                   type="button"
-                >
-                  <i class="fa fa-calendar-alt"></i>
-                </button>
+                ></button>
               </div>
             </div>
-          </div>
+            <div
+              class="text-danger"
+              *ngIf="!form.controls.startDate.valid && !form.controls.startDate.pristine"
+            >
+              The start date must be equal or greather than today
+            </div>
+          </div>          
           <div class="form-group">
             <label>Quantity of hours per day:</label>
             <input
@@ -32,9 +41,29 @@
               id="quantityPerDay"
               placeholder="Quantity per day"
               name="inputQuantity"
+              formControlName="hoursQuantity"
+              [ngClass]="{
+                'is-invalid':
+                  form.controls.hoursQuantity.invalid &&
+                  !form.controls.hoursQuantity.pristine
+              }"
             />
+            <div
+              class="text-danger"
+              *ngIf="!form.controls.hoursQuantity.valid 
+              && !form.controls.hoursQuantity.pristine"
+            >
+              The quantity of hours per day must be greather than zero(0)
+            </div>
           </div>
-          <button type="button" class="btn btn-primary">Calculate</button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="onCalculate()"
+            [disabled]="!form.valid"
+          >
+            Calculate
+          </button>
         </form>
       </div>
     </div>
