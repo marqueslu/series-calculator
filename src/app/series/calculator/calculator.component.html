@@ -2,7 +2,8 @@
   <div class="row">
     <div class="col-xl-8 offset-xl-2 col-md-12 mt-4">
       <h1 class="text-center">When I should start?</h1>
-      <div class="card">        
+      <h4 class="text-center text-italic">Serie: {{ serie.title }}</h4>
+      <div class="card mt-2">
         <form class="p-4" [formGroup]="form">
           <div class="form-group">
             <label>Start date:</label>
@@ -12,10 +13,12 @@
                 class="form-control"
                 #dp="bsDatepicker"
                 bsDatepicker
+                placeholder="yyyy-mm-dd"
                 formControlName="startDate"
                 [ngClass]="{
                   'is-invalid':
-                  !form.controls.startDate.valid && !form.controls.startDate.pristine
+                    !form.controls.startDate.valid &&
+                    !form.controls.startDate.pristine
                 }"
               />
               <div class="input-group-append">
@@ -28,11 +31,14 @@
             </div>
             <div
               class="text-danger"
-              *ngIf="!form.controls.startDate.valid && !form.controls.startDate.pristine"
+              *ngIf="
+                !form.controls.startDate.valid &&
+                !form.controls.startDate.pristine
+              "
             >
-              The start date must be equal or greather than today
+              The start date must be greather than or equal to today
             </div>
-          </div>          
+          </div>
           <div class="form-group">
             <label>Quantity of hours per day:</label>
             <input
@@ -50,21 +56,60 @@
             />
             <div
               class="text-danger"
-              *ngIf="!form.controls.hoursQuantity.valid 
-              && !form.controls.hoursQuantity.pristine"
+              *ngIf="
+                !form.controls.hoursQuantity.valid &&
+                !form.controls.hoursQuantity.pristine
+              "
             >
               The quantity of hours per day must be greather than zero(0)
             </div>
           </div>
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-outline-primary"
             (click)="onCalculate()"
             [disabled]="!form.valid"
           >
             Calculate
           </button>
+          <button
+            type="button"
+            class="btn btn-outline-dark ml-1"
+            (click)="onClean()"
+          >
+            Clean
+          </button>
+          <hr />
+          <button [routerLink]="['/']" class="btn btn-outline-secondary ml-1">
+            Return to home
+          </button>
         </form>
+      </div>
+
+      <div class="text-center mt-2" *ngIf="startDateToWatch !== undefined">
+        <div class="text-danger" *ngIf="userIsLateToStart === true">
+          <h4>You are late!!!</h4>
+          <h5>
+            You should have begun to watch in
+            <strong>{{ startDateToWatch | date }}</strong
+            >. Consider spending more time to to stay up to date with this
+            serie.
+          </h5>
+        </div>
+        <div class="text-primary" *ngIf="userIsLateToStart === false">
+          <h5>
+            The best day for you to start watching is in
+            <strong>{{ startDateToWatch | date }}</strong>
+          </h5>
+        </div>
+      </div>
+      <div class="text-center text-secondary mt-2" *ngIf="finishDate !== undefined">
+        <h4>There's no more release date for this serie!</h4>
+        <h5>
+          But... If you start to watch in
+          {{ form.controls.startDate.value | date }} you will finish the serie
+          in {{ finishDate | date }}
+        </h5>
       </div>
     </div>
   </div>

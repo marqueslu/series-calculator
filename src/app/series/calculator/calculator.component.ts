@@ -13,17 +13,16 @@ const today = new Date().toISOString().split('T')[0];
   styleUrls: ['./calculator.component.scss']
 })
 export class CalculatorComponent implements OnInit {
-  form: FormGroup;
-  serie: Serie;
+  private form: FormGroup;
+  private serie: Serie;
   private seasons: Season[] = [];
   private episodes: Episode[] = [];
-  private minutes: Number[] = [];
-  private startDate: Date;
-  private message: string = '';
-  private messageInexistentRelease: string =
-    "There's no more release for this serie";
+  private minutes: number[] = [];
+  private startDateToWatch: Date;
+  private finishDate: Date;
   private nextReleaseDate: string = '';
   private thereIsReleaseDate: boolean = true;
+  private userIsLateToStart: boolean;
 
   constructor(
     private seriesService: SeriesService,
@@ -99,14 +98,46 @@ export class CalculatorComponent implements OnInit {
     this.minutes.push(parseInt(minute[0]));
   }
 
+  onCalculate() {
+    let days = this.totalDays();
+    if (this.thereIsReleaseDate) {
+      let release = this.nextReleaseDate.split('-');
+      let date = new Date(
+        parseInt(release[0]),
+        parseInt(release[1]) - 1,
+        parseInt(release[2])
+      );
+      this.startDateToWatch = this.subtractDays(date, days);
+      this.userIsLateToStart =
+        new Date(this.startDateToWatch).toISOString().split('T')[0] < today
+          ? true
+          : false;
+    } else {
+      this.finishDate = this.addDays(this.form.get('startDate').value, days);
+    }
+  }
+
+  totalDays() {
+    let totalMinutesPerDay: number = this.form.get('hoursQuantity').value * 60;
+    let totalMinutesSerie: number = this.minutes.reduce(
+      (previusValue, currentValue) => {
+        return currentValue + previusValue;
+      }
+    );
+    let total = totalMinutesSerie / totalMinutesPerDay;
+    return total;
+  }
+
   addDays(date: Date, days) {
     let result = new Date(date);
     result.setDate(date.getDay() + days);
     return result;
   }
 
-  onCalculate() {
-    console.log(this.form);
+  subtractDays(date: Date, days) {
+    let result = new Date(date);
+    result.setDate(date.getDay() - days);
+    return result;
   }
 
   hasError(field: string) {
@@ -118,5 +149,10 @@ export class CalculatorComponent implements OnInit {
     else {
       return false;
     }
+  }
+  onClean() {
+    this.userIsLateToStart = undefined;
+    this.finishDate = undefined;
+    this.form.reset();
   }
 }
