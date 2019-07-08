@@ -21,5 +21,5 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 ------------
 
-Obs. The API is returning some release dates as 'Invalid date', so the application isn't doing the calculation for this series.
-This only happens with the serie 'Young Sheldon'.
+Obs. The API is returning some release dates as 'Invalid date', so the application will not do the calculation for this series.
+This only happens with the series 'Young Sheldon'.
