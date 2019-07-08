@@ -1,6 +1,14 @@
 {
   "name": "series-calculator",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "An application that calculates when someone needs to start to rewatch the serie before the next seacon release.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marqueslu/series-calculator.git"
+  },
+  "author": {
+    "name": "Lucas Marques"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
