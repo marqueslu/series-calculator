@@ -1,25 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-
-import { SeriesListComponent } from './series-list/series-list.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CalculatorComponent } from './calculator/calculator.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
+import { CalculatorComponent } from './calculator/calculator.component';
+import { SeriesListModule } from './series-list/series-list.module';
 
 @NgModule({
-  declarations: [SeriesListComponent, CalculatorComponent],
+  declarations: [CalculatorComponent],
   imports: [
     CommonModule,
     HttpClientModule,
     RouterModule,    
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
-    BrowserAnimationsModule
-  ],
-  exports: [SeriesListComponent]
+    BrowserAnimationsModule,
+    SeriesListModule
+  ]
 })
 export class SeriesModule { }

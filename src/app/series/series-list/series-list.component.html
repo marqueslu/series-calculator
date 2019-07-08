@@ -1,5 +1,8 @@
 <div class="row">
-  <div class="col-xl-4 col-md-12 mt-4" *ngFor="let serie of series">
+  <div class="col-xl-12 col-md-12 mt-4">
+    <app-search (onTyping)="filter = $event" [value]="filter"></app-search>
+  </div>
+  <div class="col-xl-4 col-md-12 mt-4" *ngFor="let serie of series | filterByTitle: filter">
     <div class="card">
       <div class="card-header">
         {{ serie.title }}
@@ -7,8 +10,12 @@
       <div class="card-body">
         <p class="card-text">ImdbId: {{ serie.imdbId }}</p>
         <p class="card-text">NumberOf seasons: {{ serie.numberOfSeasons }}</p>
-        <p class="card-text">Release Date: {{ serie.releaseDate | date: 'dd-MM-yyyy' }}</p>
-        <a [routerLink]="['/serie', serie.id]" class="btn btn-outline-primary">Simulate</a>
+        <p class="card-text">
+          Release Date: {{ serie.releaseDate | date: 'dd-MM-yyyy' }}
+        </p>
+        <a [routerLink]="['/serie', serie.id]" class="btn btn-outline-primary"
+          >Simulate</a
+        >
       </div>
     </div>
   </div>

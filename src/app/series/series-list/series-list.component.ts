@@ -11,7 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SeriesListComponent implements OnInit {
   series: Serie[];
-  
+  filter: string = '';
+
   constructor(private seriesService: SeriesService, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {    
