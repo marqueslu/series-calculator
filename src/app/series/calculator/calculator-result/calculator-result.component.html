@@ -2,24 +2,24 @@
   <div class="text-danger" *ngIf="userIsLateToStart === true">
     <h4>You are late!!!</h4>
     <h5>
-      You should have begun to watch in
+      You should have begun to watch on
       <strong>{{ startDateToWatch | date }}</strong
-      >. Consider spending more time to stay up to date with this serie.
+      >. Consider spending more time to staying up to date with the series.
     </h5>
   </div>
   <div class="text-primary" *ngIf="userIsLateToStart === false">
     <h5>
-      The best day for you to start watching is in
+      The best day for you to start watching is on
       <strong>{{ startDateToWatch | date }}</strong>
     </h5>
   </div>
 </div>
 
 <div class="text-center mt-2" *ngIf="finishDate !== undefined">
-  <h4 class="text-secondary">There's no more release date for this serie!</h4>
-  <h5 class="text-success">
+  <h4 class="text-secondary">There's no more release date for the series!</h4>
+  <h5 class="text-primary">
     But... If you start to watch in
-    {{ selectedDate | date }} you will finish this serie in
+    {{ selectedDate | date }} you will finish the series on
     {{ finishDate | date }}
   </h5>
 </div>

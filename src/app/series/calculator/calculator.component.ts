@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SeriesService } from '../series.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { SeriesService } from '../series.service';
 import { Serie, Episode, Season } from 'src/app/core';
 import { CustomValidator } from 'src/app/core/validators/custom.validator';
 
