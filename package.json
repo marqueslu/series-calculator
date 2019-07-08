@@ -1,7 +1,7 @@
 {
   "name": "series-calculator",
   "version": "1.0.0",
-  "description": "An application that calculates when someone needs to start to rewatch the serie before the next seacon release.",
+  "description": "An application that calculates when someone needs to start to rewatch the serie before the next season release.",
   "repository": {
     "type": "git",
     "url": "https://github.com/marqueslu/series-calculator.git"
