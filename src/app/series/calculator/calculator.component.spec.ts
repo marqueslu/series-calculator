@@ -1,4 +1,10 @@
-import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+  tick,
+  fakeAsync
+} from '@angular/core/testing';
 
 import { CalculatorComponent } from './calculator.component';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
@@ -12,24 +18,32 @@ describe('CalculatorComponent', () => {
   let component: CalculatorComponent;
   let fixture: ComponentFixture<CalculatorComponent>;
 
-  const serie: Serie = {"id":"1","imdbId":"tt0944947","title":"Game of Thrones","numberOfSeasons":8,"releaseDate":"2011-05-08"};
+  const serie: Serie = {
+    id: '1',
+    imdbId: 'tt0944947',
+    title: 'Game of Thrones',
+    numberOfSeasons: 8,
+    releaseDate: '2011-05-08'
+  };
   beforeEach(async(() => {
-    TestBed.configureTestingModule({      
-      providers: [SeriesService, {
-        provide: ActivatedRoute,        
-        useValue: {
-          paramMap: {id: '1'},
-          snapshot: {data: serie},
+    TestBed.configureTestingModule({
+      providers: [
+        SeriesService,
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            paramMap: { id: '1' },
+            snapshot: { data: serie }
+          }
         }
-      }],
+      ],
       imports: [SeriesModule, RouterTestingModule]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CalculatorComponent);
-    component = fixture.componentInstance;
+    component = fixture.componentInstance;    
     fixture.detectChanges();
   });
 
@@ -37,5 +51,4 @@ describe('CalculatorComponent', () => {
     tick();
     expect(component).toBeTruthy();
   }));
-
 });

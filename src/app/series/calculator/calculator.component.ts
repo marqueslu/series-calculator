@@ -9,8 +9,7 @@ const today = new Date().toISOString().split('T')[0];
 
 @Component({
   selector: 'app-calculator',
-  templateUrl: './calculator.component.html',
-  styleUrls: ['./calculator.component.scss']
+  templateUrl: './calculator.component.html'
 })
 export class CalculatorComponent implements OnInit {
   private form: FormGroup;
@@ -36,6 +35,7 @@ export class CalculatorComponent implements OnInit {
       ],
       hoursQuantity: ['', [Validators.min(1), Validators.required]]
     });
+
   }
 
   async ngOnInit() {

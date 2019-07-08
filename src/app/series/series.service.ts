@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { take } from 'rxjs/operators';
+
 import { Serie, Season, Episode } from '../core';
 
-const mockDate = '';
 const params = new HttpParams().append('mockDate', '2019-03-01');
-
 
 @Injectable({
   providedIn: 'root'

@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Serie } from '../../core';
-import { SeriesService } from '../series.service';
-import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+
+import { SeriesService } from '../series.service';
+import { Serie } from '../../core';
 
 @Component({
   selector: 'app-series-list',
-  templateUrl: './series-list.component.html',
-  styleUrls: ['./series-list.component.scss']
+  templateUrl: './series-list.component.html'
 })
 export class SeriesListComponent implements OnInit {
   series: Serie[];
