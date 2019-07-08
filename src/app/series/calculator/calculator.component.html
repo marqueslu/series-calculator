@@ -85,32 +85,12 @@
           </button>
         </form>
       </div>
-
-      <div class="text-center mt-2" *ngIf="startDateToWatch !== undefined">
-        <div class="text-danger" *ngIf="userIsLateToStart === true">
-          <h4>You are late!!!</h4>
-          <h5>
-            You should have begun to watch in
-            <strong>{{ startDateToWatch | date }}</strong
-            >. Consider spending more time to to stay up to date with this
-            serie.
-          </h5>
-        </div>
-        <div class="text-primary" *ngIf="userIsLateToStart === false">
-          <h5>
-            The best day for you to start watching is in
-            <strong>{{ startDateToWatch | date }}</strong>
-          </h5>
-        </div>
-      </div>
-      <div class="text-center text-secondary mt-2" *ngIf="finishDate !== undefined">
-        <h4>There's no more release date for this serie!</h4>
-        <h5>
-          But... If you start to watch in
-          {{ form.controls.startDate.value | date }} you will finish the serie
-          in {{ finishDate | date }}
-        </h5>
-      </div>
+      <app-calculator-result
+        [startDateToWatch]="startDateToWatch"
+        [finishDate]="finishDate"
+        [userIsLateToStart]="userIsLateToStart"
+        [selectedDate]="form.controls.startDate.value"
+      ></app-calculator-result>
     </div>
   </div>
 </div>

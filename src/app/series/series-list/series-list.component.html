@@ -2,7 +2,7 @@
   <div class="col-xl-12 col-md-12 mt-4">
     <app-search (onTyping)="filter = $event" [value]="filter"></app-search>
   </div>
-  <div class="col-xl-4 col-md-12 mt-4" *ngFor="let serie of series | filterByTitle: filter">
+  <div class="col-xl-4 col-md-12 mt-4 mb-2" *ngFor="let serie of series | filterByTitle: filter">
     <div class="card">
       <div class="card-header">
         {{ serie.title }}

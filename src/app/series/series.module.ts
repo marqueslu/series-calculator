@@ -8,17 +8,17 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { CalculatorComponent } from './calculator/calculator.component';
 import { SeriesListModule } from './series-list/series-list.module';
+import { CalculatorResultComponent } from './calculator/calculator-result/calculator-result.component';
+import { CalculatorModule } from './calculator/calculator.module';
 
 @NgModule({
-  declarations: [CalculatorComponent],
+  declarations: [],
   imports: [
     CommonModule,
     HttpClientModule,
-    RouterModule,    
-    ReactiveFormsModule,
-    BsDatepickerModule.forRoot(),
-    BrowserAnimationsModule,
-    SeriesListModule
+    RouterModule,        
+    SeriesListModule,
+    CalculatorModule
   ]
 })
 export class SeriesModule { }

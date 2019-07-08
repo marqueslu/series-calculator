@@ -153,6 +153,7 @@ export class CalculatorComponent implements OnInit {
   onClean() {
     this.userIsLateToStart = undefined;
     this.finishDate = undefined;
+    this.startDateToWatch = undefined;
     this.form.reset();
   }
 }
