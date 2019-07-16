@@ -13,16 +13,16 @@ const today = new Date().toISOString().split('T')[0];
   templateUrl: './calculator.component.html'
 })
 export class CalculatorComponent implements OnInit {
-  private form: FormGroup;
-  private serie: Serie;
+  public form: FormGroup;
+  public serie: Serie;
   private seasons: Season[] = [];
   private episodes: Episode[] = [];
   private minutes: number[] = [];
-  private startDateToWatch: Date;
-  private finishDate: Date;
+  public startDateToWatch: Date;
+  public finishDate: Date;
   private nextReleaseDate: string = '';
   private thereIsReleaseDate: boolean = true;
-  private userIsLateToStart: boolean;
+  public userIsLateToStart: boolean;
 
   constructor(
     private seriesService: SeriesService,
